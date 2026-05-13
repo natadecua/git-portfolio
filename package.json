@@ -2,6 +2,9 @@
   "name": "git-portfolio",
   "private": true,
   "type": "module",
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
