@@ -1,0 +1,16 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+<footer style="padding: var(--s-7) var(--s-6); border-top: 1px solid var(--hairline); display:flex; justify-content:space-between; gap: var(--s-5); flex-wrap: wrap; align-items: flex-start;">
+  <div style="max-width: 50ch;">
+    <p style="font-size: 0.95rem; color: var(--muted);">
+      Built by Nata Decua. This page reads its own data from <code class="mono">src/data/portfolio.json</code>, refreshed each Sunday by a GitHub Action. Source is public.
+    </p>
+    <p class="mono" style="margin-top: var(--s-3); color: var(--muted); font-size: 0.78rem;">
+      <a href="mailto:nathanaeltancua@gmail.com">nathanaeltancua@gmail.com</a>
+      <span style="opacity:0.4"> · </span>
+      <a href="https://github.com/natadecua">github.com/natadecua</a>
+    </p>
+  </div>
+  <ThemeToggle />
+</footer>

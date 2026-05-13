@@ -1,0 +1,40 @@
+<button id="theme-toggle" class="label" aria-label="Toggle theme">
+  <span data-show="auto">auto</span>
+  <span data-show="light" hidden>light</span>
+  <span data-show="dark" hidden>dark</span>
+</button>
+<script is:inline>
+(() => {
+  const btn = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  const order = ['auto', 'light', 'dark'];
+  const stored = localStorage.getItem('theme') ?? 'auto';
+  apply(stored);
+
+  btn.addEventListener('click', () => {
+    const cur = localStorage.getItem('theme') ?? 'auto';
+    const next = order[(order.indexOf(cur) + 1) % order.length];
+    localStorage.setItem('theme', next);
+    apply(next);
+  });
+
+  function apply(mode) {
+    if (mode === 'auto') html.removeAttribute('data-theme');
+    else html.setAttribute('data-theme', mode);
+    btn.querySelectorAll('[data-show]').forEach(el => {
+      el.hidden = el.getAttribute('data-show') !== mode;
+    });
+  }
+})();
+</script>
+<style>
+  #theme-toggle {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    cursor: pointer;
+    background: none;
+    color: var(--muted);
+  }
+  #theme-toggle:hover { border-color: var(--ink); color: var(--ink); }
+</style>
