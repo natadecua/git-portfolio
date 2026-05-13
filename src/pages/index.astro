@@ -1,17 +1,17 @@
 ---
 import "../styles/global.css";
+import Hero from "../components/Hero.astro";
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="natadecua — a quiet archive of things, mostly built in public." />
     <title>natadecua</title>
   </head>
   <body>
-    <main style="padding: var(--s-7) var(--s-6);">
-      <span class="label">N° 01 — Index</span>
-      <h1>Built in the open<span class="accent">.</span></h1>
-      <hr class="hairline" style="margin-top: var(--s-6);" />
+    <main>
+      <Hero />
     </main>
   </body>
 </html>

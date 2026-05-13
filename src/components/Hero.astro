@@ -1,0 +1,29 @@
+---
+import { syncedAgo } from '~/lib/format';
+import portfolio from '~/data/portfolio.json';
+
+const synced = syncedAgo(portfolio.synced_at);
+---
+<header style="padding: var(--s-7) var(--s-6) var(--s-6);">
+  <div style="display:flex; justify-content:space-between; align-items:baseline;">
+    <span class="label">N° 01 — Index</span>
+    <span class="label">2026</span>
+  </div>
+  <h1 style="margin-top: var(--s-3);">A quiet archive of<br/>things, mostly built<br/>in public<span class="accent">.</span></h1>
+  <div style="margin-top: var(--s-5); display:flex; gap: var(--s-4); align-items:center;">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="mono" style="color: var(--muted);">{synced}</span>
+    <span class="mono" style="color: var(--muted);">·</span>
+    <a class="mono" href="https://github.com/natadecua" style="color: var(--muted);">github.com/natadecua</a>
+  </div>
+</header>
+<style>
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px color-mix(in oklch, var(--accent) 60%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot { box-shadow: none; }
+  }
+</style>
