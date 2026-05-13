@@ -5,7 +5,7 @@ import SpecimenFallback from './SpecimenFallback.astro';
 import Specimen from './Specimen.tsx';
 import ProjectDetail from './ProjectDetail.astro';
 ---
-<section style="padding: 0 var(--s-6) var(--s-7);">
+<section class="works-section">
   <div class="section-head">
     <span class="label">Selected works</span>
     <span class="label">{portfolio.repos.length} repos</span>
@@ -16,18 +16,20 @@ import ProjectDetail from './ProjectDetail.astro';
     {portfolio.repos.map((r, i) => (
       <details class="card" name="project">
         <summary class="card-summary">
-          <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
-          <div class="specimen">
-            <SpecimenFallback name={r.name} size={140} />
-            <Specimen client:only="react" params={r.specimen} size={140} />
+          <div class="card-top">
+            <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="title">{r.name}</h3>
+            <div class="meta mono">
+              <span>{r.language ?? '—'}</span>
+              <span class="sep">·</span>
+              <span>★ {r.stars}</span>
+              <span class="sep">·</span>
+              <span>{relativeTime(r.pushed_at)}</span>
+            </div>
           </div>
-          <h3 class="title">{r.name}</h3>
-          <div class="meta mono">
-            <span>{r.language ?? '—'}</span>
-            <span class="sep">·</span>
-            <span>★ {r.stars}</span>
-            <span class="sep">·</span>
-            <span>{relativeTime(r.pushed_at)}</span>
+          <div class="specimen">
+            <SpecimenFallback name={r.name} size={120} />
+            <Specimen client:only="react" params={r.specimen} size={120} />
           </div>
         </summary>
         <div class="card-body">
@@ -48,27 +50,36 @@ import ProjectDetail from './ProjectDetail.astro';
 </section>
 
 <style>
+  .works-section {
+    padding: 0 var(--s-6) var(--s-8);
+    border-top: 1px solid var(--hairline);
+  }
+
   .section-head {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding-bottom: var(--s-3);
+    padding: var(--s-5) 0 var(--s-3);
+    gap: var(--s-3);
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--s-6) var(--s-5);
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--s-6) var(--s-4);
     padding-top: var(--s-6);
   }
 
   .card {
     position: relative;
-    transition: opacity 220ms var(--ease-out);
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+    border-top: 1px solid var(--hairline);
+    padding-top: var(--s-4);
   }
 
   .card[open] {
     grid-column: 1 / -1;
+    transform: none;
   }
 
   /* When any card is open, dim the others */
@@ -79,56 +90,71 @@ import ProjectDetail from './ProjectDetail.astro';
   .card-summary {
     list-style: none;
     cursor: pointer;
-    display: grid;
-    grid-template-rows: auto 1fr auto auto;
-    justify-items: center;
-    gap: var(--s-3);
-    padding: var(--s-5) var(--s-3) var(--s-6);
-    text-align: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-3) var(--s-5);
   }
   .card-summary::-webkit-details-marker { display: none; }
 
+  .card-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
   .rank {
-    position: absolute;
-    top: var(--s-4);
-    left: var(--s-3);
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     color: var(--muted);
     letter-spacing: 0.15em;
   }
 
   .specimen {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     transition: transform 320ms var(--ease-out);
+    isolation: isolate;
+    align-self: flex-start;
   }
   .specimen > div { position: absolute; inset: 0; }
   .specimen > div:last-child { z-index: 1; }
 
+  .specimen :global(.specimen-fallback) {
+    transition: opacity 180ms var(--ease-out);
+  }
+
+  .specimen.has-webgl :global(.specimen-fallback) {
+    opacity: 0;
+  }
+
   .card:hover .specimen,
-  .card:focus-within .specimen { transform: scale(1.08); }
+  .card:focus-within .specimen { transform: scale(1.05); }
+
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-2px);
+  }
 
   .title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     letter-spacing: -0.02em;
     margin: 0;
     transition: color 180ms var(--ease-out);
+    line-height: 1.2;
   }
   .card:hover .title,
   .card[open] .title { color: var(--accent); }
 
   .meta {
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.04em;
     display: flex;
     gap: var(--s-2);
     flex-wrap: wrap;
-    justify-content: center;
   }
   .sep { opacity: 0.4; }
 
@@ -145,11 +171,28 @@ import ProjectDetail from './ProjectDetail.astro';
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @media (max-width: 540px) {
-    .grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-5) var(--s-4); }
-    .specimen { width: 100px; height: 100px; }
+  @media (max-width: 760px) {
+    .works-section {
+      padding: 0 var(--s-4) var(--s-7);
+    }
+
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--s-5);
+    }
+
+    .card-summary {
+      padding: var(--s-3) var(--s-2) var(--s-4);
+    }
+
+    .specimen { width: 96px; height: 96px; }
     .title { font-size: 0.95rem; }
-    .meta { font-size: 0.66rem; }
+    .meta { font-size: 0.64rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -161,12 +204,24 @@ import ProjectDetail from './ProjectDetail.astro';
 <script>
   const grid = document.querySelector('.grid') as HTMLElement | null;
   if (grid) {
+    const markWebGlSpecimens = () => {
+      const allSpecimens = grid.querySelectorAll<HTMLElement>('.specimen');
+      allSpecimens.forEach((node) => {
+        if (node.querySelector('canvas')) node.classList.add('has-webgl');
+      });
+    };
+
+    markWebGlSpecimens();
+    const observer = new MutationObserver(markWebGlSpecimens);
+    observer.observe(grid, { childList: true, subtree: true });
+
     const cards = () => Array.from(grid.querySelectorAll<HTMLDetailsElement>('details.card'));
 
     function openCard(el: HTMLDetailsElement) {
       cards().forEach(c => { if (c !== el) c.removeAttribute('open'); });
       el.setAttribute('open', '');
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
     }
 
     function closeOpen() {
@@ -174,21 +229,7 @@ import ProjectDetail from './ProjectDetail.astro';
     }
 
     document.addEventListener('keydown', (e) => {
-      if ((e.target as HTMLElement).tagName === 'INPUT') return;
-      const all = cards();
-      const openIdx = all.findIndex(c => c.hasAttribute('open'));
-
-      if (e.key === 'Escape') { closeOpen(); return; }
-      if (e.key === 'j' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        const next = openIdx < all.length - 1 ? openIdx + 1 : 0;
-        openCard(all[next]);
-      }
-      if (e.key === 'k' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        const prev = openIdx > 0 ? openIdx - 1 : all.length - 1;
-        openCard(all[prev]);
-      }
+      if (e.key === 'Escape') closeOpen();
     });
 
     grid.addEventListener('click', (e) => {

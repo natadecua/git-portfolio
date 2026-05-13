@@ -5,13 +5,13 @@ import portfolio from '~/data/portfolio.json';
 const synced = syncedAgo(portfolio.synced_at);
 ---
 <header style="padding: var(--s-7) var(--s-6) var(--s-6);">
-  <div style="display:flex; justify-content:space-between; align-items:baseline;">
+  <div class="hero-top">
     <span class="label">N° 01 — Index</span>
     <span class="label">2026</span>
   </div>
-  <h1 style="margin-top: var(--s-3);">A quiet archive of<br/>things, mostly built<br/>in public<span class="accent">.</span></h1>
-  <p class="identity mono">Nathanael Tan Cua · Software Engineer · Philippines</p>
-  <div style="margin-top: var(--s-4); display:flex; gap: var(--s-4); align-items:center; flex-wrap:wrap;">
+  <h1 class="hero-title">My portfolio<span class="accent">.</span></h1>
+  <p class="identity mono">Nathanael Tan Cua · Computer Engineer · Philippines</p>
+  <div class="hero-meta">
     <span class="dot" aria-hidden="true"></span>
     <span class="mono" style="color: var(--muted);">{synced}</span>
     <span class="mono" style="color: var(--muted);">·</span>
@@ -19,6 +19,27 @@ const synced = syncedAgo(portfolio.synced_at);
   </div>
 </header>
 <style>
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-3);
+  }
+
+  .hero-title {
+    margin-top: var(--s-3);
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+
+  .hero-meta {
+    margin-top: var(--s-4);
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
   .identity {
     margin-top: var(--s-5);
     font-size: 0.78rem;
@@ -33,5 +54,21 @@ const synced = syncedAgo(portfolio.synced_at);
   }
   @media (prefers-reduced-motion: reduce) {
     .dot { box-shadow: none; }
+  }
+
+  @media (max-width: 760px) {
+    header {
+      padding: var(--s-6) var(--s-4) var(--s-5);
+    }
+
+    .hero-title {
+      max-width: 100%;
+      text-wrap: pretty;
+      font-size: clamp(2.2rem, 10vw, 3.5rem);
+    }
+
+    .hero-meta {
+      gap: var(--s-3);
+    }
   }
 </style>
