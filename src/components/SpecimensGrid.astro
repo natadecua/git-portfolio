@@ -6,26 +6,31 @@ import Specimen from './Specimen.tsx';
 import ProjectDetail from './ProjectDetail.astro';
 ---
 <section style="padding: 0 var(--s-6) var(--s-7);">
-  <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom: var(--s-3);">
+  <div class="section-head">
     <span class="label">Selected works</span>
     <span class="label">{portfolio.repos.length} repos</span>
   </div>
   <hr class="hairline" />
-  <ol class="ledger">
+
+  <div class="grid">
     {portfolio.repos.map((r, i) => (
-      <li>
-        <details class="row-details">
-          <summary class="row">
-            <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
-            <span class="title">{r.name}</span>
-            <span class="lang mono">{r.language ?? '—'}</span>
-            <span class="stars mono">★ {r.stars}</span>
-            <span class="ago mono">{relativeTime(r.pushed_at)}</span>
-            <span class="specimen">
-              <SpecimenFallback name={r.name} />
-              <Specimen client:only="react" params={r.specimen} />
-            </span>
-          </summary>
+      <details class="card" name="project">
+        <summary class="card-summary">
+          <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
+          <div class="specimen">
+            <SpecimenFallback name={r.name} size={140} />
+            <Specimen client:only="react" params={r.specimen} size={140} />
+          </div>
+          <h3 class="title">{r.name}</h3>
+          <div class="meta mono">
+            <span>{r.language ?? '—'}</span>
+            <span class="sep">·</span>
+            <span>★ {r.stars}</span>
+            <span class="sep">·</span>
+            <span>{relativeTime(r.pushed_at)}</span>
+          </div>
+        </summary>
+        <div class="card-body">
           <ProjectDetail
             name={r.name}
             description={r.description}
@@ -36,36 +41,119 @@ import ProjectDetail from './ProjectDetail.astro';
             pushed_at={r.pushed_at}
             readme_path={r.readme_path}
           />
-        </details>
-      </li>
+        </div>
+      </details>
     ))}
-  </ol>
+  </div>
 </section>
+
 <style>
-  .ledger { list-style: none; padding: 0; margin: 0; }
-  .row {
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: var(--s-3);
+  }
+
+  .grid {
     display: grid;
-    grid-template-columns: 36px 1fr 110px 70px 70px 48px;
-    gap: var(--s-4);
-    align-items: center;
-    padding: var(--s-4) 0;
-    border-bottom: 1px solid var(--hairline);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--s-6) var(--s-5);
+    padding-top: var(--s-6);
   }
-  .rank, .lang, .stars, .ago { color: var(--muted); font-size: 0.74rem; }
-  .title {
-    font-family: var(--font-display);
-    font-weight: 700; font-size: 1.05rem;
-    letter-spacing: -0.015em;
+
+  .card {
+    position: relative;
+    transition: opacity 220ms var(--ease-out);
   }
-  .specimen { justify-self: end; position: relative; width: 40px; height: 40px; }
+
+  .card[open] {
+    grid-column: 1 / -1;
+  }
+
+  /* When any card is open, dim the others */
+  .grid:has(.card[open]) .card:not([open]) {
+    opacity: 0.35;
+  }
+
+  .card-summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    justify-items: center;
+    gap: var(--s-3);
+    padding: var(--s-5) var(--s-3) var(--s-6);
+    text-align: center;
+    position: relative;
+  }
+  .card-summary::-webkit-details-marker { display: none; }
+
+  .rank {
+    position: absolute;
+    top: var(--s-4);
+    left: var(--s-3);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  .specimen {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    transition: transform 320ms var(--ease-out);
+  }
   .specimen > div { position: absolute; inset: 0; }
   .specimen > div:last-child { z-index: 1; }
-  .row-details > summary { list-style: none; cursor: pointer; }
-  .row-details > summary::-webkit-details-marker { display: none; }
-  .row-details[open] > summary .title { color: var(--accent); }
-  .row-details[open] > summary { border-bottom-color: transparent; }
-  @media (max-width: 720px) {
-    .row { grid-template-columns: 28px 1fr 60px 40px; }
-    .lang, .stars { display: none; }
+
+  .card:hover .specimen,
+  .card:focus-within .specimen { transform: scale(1.08); }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    margin: 0;
+    transition: color 180ms var(--ease-out);
+  }
+  .card:hover .title,
+  .card[open] .title { color: var(--accent); }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    gap: var(--s-2);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .sep { opacity: 0.4; }
+
+  .card-body {
+    border-top: 1px solid var(--hairline);
+    padding: var(--s-5) 0 var(--s-6);
+    max-width: 70ch;
+    margin: 0 auto;
+    animation: fadeUp 320ms var(--ease-out);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 540px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-5) var(--s-4); }
+    .specimen { width: 100px; height: 100px; }
+    .title { font-size: 0.95rem; }
+    .meta { font-size: 0.66rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .specimen, .card { transition: none; }
+    .card-body { animation: none; }
   }
 </style>

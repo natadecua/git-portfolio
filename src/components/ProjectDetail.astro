@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
+import { relativeTime } from '~/lib/format';
 interface Props {
   name: string;
   description: string;
@@ -14,32 +15,124 @@ interface Props {
 }
 const { name, description, language, stars, html_url, topics, pushed_at, readme_path } = Astro.props;
 const raw = await fs.readFile(path.join(process.cwd(), readme_path), 'utf8').catch(() => '');
-const html = raw ? marked.parse(raw, { breaks: true }) : '<p class="muted">No README.</p>';
+const html = raw ? marked.parse(raw, { breaks: true }) : '';
 ---
 <div class="detail">
-  <div class="meta">
-    <span class="label">Project</span>
-    <h2 style="margin-top: var(--s-2);">{name}<span class="accent">.</span></h2>
-    {description && <p style="margin-top: var(--s-2);">{description}</p>}
-    <div class="chips mono">
-      {language && <span>{language}</span>}
-      <span>★ {stars}</span>
-      {topics.slice(0, 4).map(t => <span>#{t}</span>)}
+  <header class="detail-head">
+    <div>
+      <span class="label">Project</span>
+      <h2>{name}<span class="accent">.</span></h2>
+      {description && <p class="desc">{description}</p>}
     </div>
-    <a class="mono accent-link" href={html_url} rel="noopener">{html_url} ↗</a>
+    <a class="external mono" href={html_url} rel="noopener" target="_blank">View on GitHub ↗</a>
+  </header>
+
+  <div class="chips mono">
+    {language && <span class="chip">{language}</span>}
+    <span class="chip">★ {stars}</span>
+    <span class="chip">Updated {relativeTime(pushed_at)}</span>
+    {topics.slice(0, 6).map(t => <span class="chip topic">#{t}</span>)}
   </div>
-  <hr class="hairline" style="margin: var(--s-4) 0;" />
-  <article class="readme" set:html={html} />
+
+  <hr class="hairline" />
+
+  {html
+    ? <article class="readme" set:html={html} />
+    : <p class="empty mono">No README provided.</p>}
 </div>
+
 <style>
-  .detail { padding: var(--s-5) 0 var(--s-6); max-width: 70ch; }
-  .chips { display:flex; flex-wrap: wrap; gap: var(--s-3); color: var(--muted); margin-top: var(--s-3); }
-  .accent-link { color: var(--accent); margin-top: var(--s-3); display: inline-block; font-size: 0.8rem; }
-  .readme :global(h1), .readme :global(h2) { font-family: var(--font-display); margin-top: var(--s-5); font-size: 1.2rem; }
-  .readme :global(h3) { font-family: var(--font-display); margin-top: var(--s-4); font-size: 1rem; }
-  .readme :global(p), .readme :global(li) { font-size: 0.95rem; line-height: 1.6; }
-  .readme :global(pre) { font-family: var(--font-mono); background: color-mix(in oklch, var(--ink) 6%, transparent); padding: var(--s-4); overflow-x: auto; border-radius: 2px; }
-  .readme :global(code) { font-family: var(--font-mono); font-size: 0.85em; }
-  .readme :global(a) { color: var(--accent); }
-  .readme :global(img) { max-width: 100%; }
+  .detail { padding: var(--s-4) 0 var(--s-3); }
+
+  .detail-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--s-5);
+    flex-wrap: wrap;
+    margin-bottom: var(--s-4);
+  }
+
+  .detail-head h2 {
+    margin-top: var(--s-2);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+
+  .desc {
+    margin-top: var(--s-3);
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 60ch;
+  }
+
+  .external {
+    color: var(--accent);
+    font-size: 0.78rem;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .external:hover { border-bottom-color: var(--accent); }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    color: var(--muted);
+    margin: var(--s-4) 0;
+    font-size: 0.74rem;
+  }
+  .chip {
+    padding: 4px 10px;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+  }
+  .chip.topic { opacity: 0.75; }
+
+  .empty {
+    color: var(--muted);
+    padding: var(--s-5) 0;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .readme {
+    max-width: 70ch;
+    margin: var(--s-4) auto 0;
+  }
+  .readme :global(h1) { font-family: var(--font-display); font-size: 1.4rem; margin-top: var(--s-5); margin-bottom: var(--s-3); }
+  .readme :global(h2) { font-family: var(--font-display); font-size: 1.2rem; margin-top: var(--s-5); margin-bottom: var(--s-3); }
+  .readme :global(h3) { font-family: var(--font-display); font-size: 1.05rem; margin-top: var(--s-4); margin-bottom: var(--s-2); }
+  .readme :global(p), .readme :global(li) { font-size: 0.95rem; line-height: 1.65; }
+  .readme :global(p) { margin: var(--s-3) 0; }
+  .readme :global(ul), .readme :global(ol) { padding-left: var(--s-5); margin: var(--s-3) 0; }
+  .readme :global(pre) {
+    font-family: var(--font-mono);
+    background: color-mix(in oklch, var(--ink) 6%, transparent);
+    padding: var(--s-4);
+    overflow-x: auto;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin: var(--s-3) 0;
+  }
+  .readme :global(code) { font-family: var(--font-mono); font-size: 0.88em; }
+  .readme :global(:not(pre) > code) {
+    background: color-mix(in oklch, var(--ink) 6%, transparent);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .readme :global(a) { color: var(--accent); border-bottom: 1px solid currentColor; }
+  .readme :global(img) { max-width: 100%; border-radius: 2px; }
+  .readme :global(blockquote) {
+    padding-left: var(--s-4);
+    margin: var(--s-3) 0;
+    border-left: 1px solid var(--hairline);
+    color: var(--muted);
+  }
+  .readme :global(table) { border-collapse: collapse; margin: var(--s-3) 0; font-size: 0.9rem; }
+  .readme :global(th), .readme :global(td) {
+    border-bottom: 1px solid var(--hairline);
+    padding: var(--s-2) var(--s-3);
+    text-align: left;
+  }
 </style>

@@ -14,11 +14,11 @@ function Mesh3D({ p }: { p: SpecimenParams }) {
   const ref = useRef<Mesh & Points>(null);
   useFrame((_, dt) => {
     if (!ref.current) return;
-    ref.current.rotation.x += dt * p.rotationRate * 0.7;
+    ref.current.rotation.x += dt * p.rotationRate * 0.6;
     ref.current.rotation.y += dt * p.rotationRate;
   });
 
-  const segments = Math.max(8, Math.round(24 * p.density));
+  const segments = Math.max(10, Math.round(28 * p.density));
 
   switch (p.family) {
     case 'sphere':
@@ -31,14 +31,14 @@ function Mesh3D({ p }: { p: SpecimenParams }) {
     case 'polyhedron':
       return (
         <mesh ref={ref as React.RefObject<Mesh>} scale={p.scale}>
-          <icosahedronGeometry args={[1.1, 0]} />
+          <icosahedronGeometry args={[1.1, 1]} />
           <meshBasicMaterial color="currentColor" wireframe />
         </mesh>
       );
     case 'torus':
       return (
         <mesh ref={ref as React.RefObject<Mesh>} scale={p.scale}>
-          <torusGeometry args={[0.8, 0.3, 12, segments]} />
+          <torusGeometry args={[0.8, 0.3, 16, segments]} />
           <meshBasicMaterial color="currentColor" wireframe />
         </mesh>
       );
@@ -52,21 +52,21 @@ function Mesh3D({ p }: { p: SpecimenParams }) {
     default:
       return (
         <points ref={ref as React.RefObject<Points>} scale={p.scale}>
-          <sphereGeometry args={[1, 8, 8]} />
-          <pointsMaterial size={0.04} color="currentColor" />
+          <sphereGeometry args={[1, 12, 12]} />
+          <pointsMaterial size={0.05} color="currentColor" />
         </points>
       );
   }
 }
 
-export default function Specimen({ params }: { params: SpecimenParams }) {
+export default function Specimen({ params, size = 120 }: { params: SpecimenParams; size?: number }) {
   const reduce =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return null;
 
   return (
-    <div style={{ width: 40, height: 40, color: 'currentColor' }}>
+    <div style={{ width: size, height: size, color: 'currentColor' }}>
       <Canvas
         camera={{ position: [0, 0, 3], fov: 35 }}
         dpr={[1, 2]}
