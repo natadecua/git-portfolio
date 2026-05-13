@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   /* color */
   --ink:      oklch(0.16 0.01 80);
   --paper:    oklch(0.97 0.005 80);
@@ -24,8 +26,8 @@
 @media (prefers-color-scheme: dark) {
   :root { --ink: oklch(0.97 0.005 80); --paper: oklch(0.16 0.01 80); }
 }
-:root[data-theme="light"] { --ink: oklch(0.16 0.01 80); --paper: oklch(0.97 0.005 80); }
-:root[data-theme="dark"]  { --ink: oklch(0.97 0.005 80); --paper: oklch(0.16 0.01 80); }
+:root[data-theme="light"] { color-scheme: light; --ink: oklch(0.16 0.01 80); --paper: oklch(0.97 0.005 80); }
+:root[data-theme="dark"]  { color-scheme: dark; --ink: oklch(0.97 0.005 80); --paper: oklch(0.16 0.01 80); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

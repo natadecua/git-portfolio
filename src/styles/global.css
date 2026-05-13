@@ -8,7 +8,7 @@ body {
   line-height: 1.55;
   font-feature-settings: "ss01", "ss02";
 }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.035em; line-height: 0.98; margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: 0; line-height: 0.98; margin: 0; }
 h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
 h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
 h3 { font-size: 1.125rem; }
