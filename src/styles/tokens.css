@@ -1,0 +1,35 @@
+:root {
+  /* color */
+  --ink:      oklch(0.16 0.01 80);
+  --paper:    oklch(0.97 0.005 80);
+  --hairline: color-mix(in oklch, var(--ink) 14%, transparent);
+  --muted:    color-mix(in oklch, var(--ink) 55%, transparent);
+  --accent:   oklch(0.65 0.22 35);
+
+  /* spacing (4pt) */
+  --s-1: 4px;  --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 24px; --s-6: 32px;  --s-7: 48px;  --s-8: 64px;  --s-9: 96px;
+
+  /* type */
+  --font-display: "PP Neue Montreal", "GT America", system-ui, sans-serif;
+  --font-body:    "PP Neue Montreal", "GT America", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-mid:  260ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --ink: oklch(0.97 0.005 80); --paper: oklch(0.16 0.01 80); }
+}
+:root[data-theme="light"] { --ink: oklch(0.16 0.01 80); --paper: oklch(0.97 0.005 80); }
+:root[data-theme="dark"]  { --ink: oklch(0.97 0.005 80); --paper: oklch(0.16 0.01 80); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
