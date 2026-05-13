@@ -1,4 +1,4 @@
-import { seedFromString, mulberry32 } from '../src/lib/seedRandom.ts';
+import { seedFromString, mulberry32 } from './seed-random.mjs';
 
 export const GEOMETRY_FAMILIES = ['sphere', 'polyhedron', 'torus', 'cylinder', 'generic'];
 
