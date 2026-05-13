@@ -2,6 +2,7 @@
 import portfolio from '~/data/portfolio.json';
 import { relativeTime } from '~/lib/format';
 import SpecimenFallback from './SpecimenFallback.astro';
+import Specimen from './Specimen.tsx';
 ---
 <section style="padding: 0 var(--s-6) var(--s-7);">
   <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom: var(--s-3);">
@@ -17,7 +18,10 @@ import SpecimenFallback from './SpecimenFallback.astro';
         <span class="lang mono">{r.language ?? '—'}</span>
         <span class="stars mono">★ {r.stars}</span>
         <span class="ago mono">{relativeTime(r.pushed_at)}</span>
-        <span class="specimen"><SpecimenFallback name={r.name} /></span>
+        <span class="specimen">
+          <SpecimenFallback name={r.name} />
+          <Specimen client:visible params={r.specimen} />
+        </span>
       </li>
     ))}
   </ol>
@@ -39,7 +43,9 @@ import SpecimenFallback from './SpecimenFallback.astro';
     letter-spacing: -0.015em;
   }
   .title:hover { color: var(--accent); }
-  .specimen { justify-self: end; }
+  .specimen { justify-self: end; position: relative; width: 40px; height: 40px; }
+  .specimen > div { position: absolute; inset: 0; }
+  .specimen > div:last-child { z-index: 1; }
   @media (max-width: 720px) {
     .row { grid-template-columns: 28px 1fr 60px 40px; }
     .lang, .stars { display: none; }
