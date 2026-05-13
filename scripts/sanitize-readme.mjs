@@ -5,9 +5,14 @@ const ONATTR_RE = /\son[a-z]+\s*=\s*("([^"]*)"|'([^']*)'|[^\s>]+)/gi;
 const DETAILS_RE = /<details\b/i;
 
 function truncateBytes(str, max) {
-  const buf = new TextEncoder().encode(str);
+  const encoder = new TextEncoder();
+  const buf = encoder.encode(str);
   if (buf.length <= max) return str;
-  return new TextDecoder().decode(buf.slice(0, max));
+  let out = new TextDecoder('utf-8', { fatal: false }).decode(buf.slice(0, max));
+  while (encoder.encode(out).length > max) {
+    out = out.slice(0, -1);
+  }
+  return out;
 }
 
 export function sanitizeReadme(input) {

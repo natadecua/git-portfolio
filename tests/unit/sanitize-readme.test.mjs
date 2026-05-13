@@ -36,6 +36,11 @@ describe('sanitizeReadme', () => {
     expect(out.startsWith('# Title')).toBe(true);
   });
 
+  it('keeps multibyte truncation within 8KB when encoded', () => {
+    const out = sanitizeReadme('a'.repeat(8191) + '€');
+    expect(new TextEncoder().encode(out).length).toBeLessThanOrEqual(8192);
+  });
+
   it('returns empty string for null/undefined', () => {
     expect(sanitizeReadme(null)).toBe('');
     expect(sanitizeReadme(undefined)).toBe('');
