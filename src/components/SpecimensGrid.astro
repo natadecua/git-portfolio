@@ -1,0 +1,47 @@
+---
+import portfolio from '~/data/portfolio.json';
+import { relativeTime } from '~/lib/format';
+import SpecimenFallback from './SpecimenFallback.astro';
+---
+<section style="padding: 0 var(--s-6) var(--s-7);">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom: var(--s-3);">
+    <span class="label">Selected works</span>
+    <span class="label">{portfolio.repos.length} repos</span>
+  </div>
+  <hr class="hairline" />
+  <ol class="ledger">
+    {portfolio.repos.map((r, i) => (
+      <li class="row">
+        <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
+        <a class="title" href={r.html_url} rel="noopener">{r.name}</a>
+        <span class="lang mono">{r.language ?? '—'}</span>
+        <span class="stars mono">★ {r.stars}</span>
+        <span class="ago mono">{relativeTime(r.pushed_at)}</span>
+        <span class="specimen"><SpecimenFallback name={r.name} /></span>
+      </li>
+    ))}
+  </ol>
+</section>
+<style>
+  .ledger { list-style: none; padding: 0; margin: 0; }
+  .row {
+    display: grid;
+    grid-template-columns: 36px 1fr 110px 70px 70px 48px;
+    gap: var(--s-4);
+    align-items: center;
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .rank, .lang, .stars, .ago { color: var(--muted); font-size: 0.74rem; }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.05rem;
+    letter-spacing: -0.015em;
+  }
+  .title:hover { color: var(--accent); }
+  .specimen { justify-self: end; }
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 28px 1fr 60px 40px; }
+    .lang, .stars { display: none; }
+  }
+</style>
