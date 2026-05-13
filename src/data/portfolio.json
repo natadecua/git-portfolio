@@ -1,0 +1,343 @@
+{
+  "synced_at": "2026-05-13T02:58:57.719Z",
+  "languages_overall": {
+    "Other": 0.333,
+    "TypeScript": 0.083,
+    "JavaScript": 0.167,
+    "HTML": 0.167,
+    "C": 0.167,
+    "Perl": 0.083
+  },
+  "activity_52w": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    0,
+    1
+  ],
+  "repos": [
+    {
+      "name": "git-portfolio",
+      "description": "",
+      "language": null,
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2026-05-13T00:30:44Z",
+      "html_url": "https://github.com/natadecua/git-portfolio",
+      "is_private": false,
+      "readme_path": "src/data/readmes/git-portfolio.md",
+      "specimen_svg": "/specimens/git-portfolio.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3346173042198643,
+        "rotationRate": 0.5999224996983209,
+        "jitter": [
+          0.05900676199235022,
+          -0.09257680550217628,
+          -0.04095485177822411
+        ],
+        "scale": 1.0335566652007402
+      }
+    },
+    {
+      "name": "favour.ph",
+      "description": "A b2b business discovery platform ",
+      "language": "TypeScript",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2026-05-12T00:53:48Z",
+      "html_url": "https://github.com/natadecua/favour.ph",
+      "is_private": false,
+      "readme_path": "src/data/readmes/favour.ph.md",
+      "specimen_svg": "/specimens/favour.ph.svg",
+      "specimen": {
+        "family": "sphere",
+        "density": 0.35492492185439917,
+        "rotationRate": 0.5991817476011883,
+        "jitter": [
+          0.04124412895180285,
+          0.2243036045692861,
+          0.20490519469603896
+        ],
+        "scale": 1.065181792480871
+      }
+    },
+    {
+      "name": "rialc1-ui",
+      "description": "thesis ui design",
+      "language": "JavaScript",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2026-03-15T14:05:51Z",
+      "html_url": "https://github.com/natadecua/rialc1-ui",
+      "is_private": false,
+      "readme_path": "src/data/readmes/rialc1-ui.md",
+      "specimen_svg": "/specimens/rialc1-ui.svg",
+      "specimen": {
+        "family": "sphere",
+        "density": 0.3338321828050539,
+        "rotationRate": 0.5576188426689378,
+        "jitter": [
+          0.4063148300629109,
+          -0.04650484258309007,
+          -0.08998480602167547
+        ],
+        "scale": 1.1321308699902146
+      }
+    },
+    {
+      "name": "mejore-mes",
+      "description": "",
+      "language": "JavaScript",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2026-02-22T14:36:52Z",
+      "html_url": "https://github.com/natadecua/mejore-mes",
+      "is_private": false,
+      "readme_path": "src/data/readmes/mejore-mes.md",
+      "specimen_svg": "/specimens/mejore-mes.svg",
+      "specimen": {
+        "family": "sphere",
+        "density": 0.3461125631816685,
+        "rotationRate": 0.5432387017545199,
+        "jitter": [
+          0.4897012005094439,
+          0.39537671161815524,
+          0.050200977595523
+        ],
+        "scale": 0.8651090786093846
+      }
+    },
+    {
+      "name": "mahjongman",
+      "description": "New Mahjong Game MVP Test",
+      "language": null,
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2026-01-31T14:19:16Z",
+      "html_url": "https://github.com/natadecua/mahjongman",
+      "is_private": false,
+      "readme_path": "src/data/readmes/mahjongman.md",
+      "specimen_svg": "/specimens/mahjongman.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3681696081534028,
+        "rotationRate": 0.5285877165901857,
+        "jitter": [
+          -0.48719423124566674,
+          0.23574413638561964,
+          0.4609840342309326
+        ],
+        "scale": 1.0459307544399052
+      }
+    },
+    {
+      "name": "personal-portfolio",
+      "description": "A web based portfolio as a requirement for the LBYCPG3 Web development course",
+      "language": "HTML",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-11-20T16:30:18Z",
+      "html_url": "https://github.com/natadecua/personal-portfolio",
+      "is_private": false,
+      "readme_path": "src/data/readmes/personal-portfolio.md",
+      "specimen_svg": "/specimens/personal-portfolio.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3662928751902655,
+        "rotationRate": 0.4836917481620042,
+        "jitter": [
+          0.26337868301197886,
+          0.06338215991854668,
+          0.1436600147280842
+        ],
+        "scale": 0.8703882382949814
+      }
+    },
+    {
+      "name": "natadecua.github.io",
+      "description": "GCF Batangas Test Website",
+      "language": "HTML",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-11-17T04:11:34Z",
+      "html_url": "https://github.com/natadecua/natadecua.github.io",
+      "is_private": false,
+      "readme_path": "src/data/readmes/natadecua.github.io.md",
+      "specimen_svg": "/specimens/natadecua.github.io.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3311813422944397,
+        "rotationRate": 0.4816096891928252,
+        "jitter": [
+          -0.4370221383869648,
+          -0.41046425397507846,
+          -0.48241889267228544
+        ],
+        "scale": 1.059612882276997
+      }
+    },
+    {
+      "name": "gcfbatangas",
+      "description": "church website development",
+      "language": null,
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-09-20T04:56:21Z",
+      "html_url": "https://github.com/natadecua/gcfbatangas",
+      "is_private": false,
+      "readme_path": "src/data/readmes/gcfbatangas.md",
+      "specimen_svg": "/specimens/gcfbatangas.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.37858318563085047,
+        "rotationRate": 0.44866131822011746,
+        "jitter": [
+          -0.03794562444090843,
+          -0.2663763917516917,
+          -0.1949201188981533
+        ],
+        "scale": 0.9719559212680906
+      }
+    },
+    {
+      "name": "line-follower-robot-pic16f877a",
+      "description": "Line follower schematic design",
+      "language": "C",
+      "stars": 1,
+      "topics": [],
+      "pushed_at": "2025-04-10T06:10:11Z",
+      "html_url": "https://github.com/natadecua/line-follower-robot-pic16f877a",
+      "is_private": false,
+      "readme_path": "src/data/readmes/line-follower-robot-pic16f877a.md",
+      "specimen_svg": "/specimens/line-follower-robot-pic16f877a.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.4161255305163479,
+        "rotationRate": 0.36890549209749046,
+        "jitter": [
+          0.3061526217497885,
+          -0.3205768975894898,
+          0.038173902314156294
+        ],
+        "scale": 1.000654252874665
+      }
+    },
+    {
+      "name": "ARFES-Rabbit-Feeder",
+      "description": "",
+      "language": "C",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-04-09T17:34:01Z",
+      "html_url": "https://github.com/natadecua/ARFES-Rabbit-Feeder",
+      "is_private": false,
+      "readme_path": "src/data/readmes/ARFES-Rabbit-Feeder.md",
+      "specimen_svg": "/specimens/ARFES-Rabbit-Feeder.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3556287447921932,
+        "rotationRate": 0.36867617418342546,
+        "jitter": [
+          -0.2261154199950397,
+          0.009937207447364926,
+          -0.326066501904279
+        ],
+        "scale": 0.9182366468710824
+      }
+    },
+    {
+      "name": "Date-based-Linux-Perl-File-sorter",
+      "description": "The  development and implementation of a Perl script designed to  automate the sorting of files by modification date within Linux  environments.",
+      "language": "Perl",
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-04-04T11:37:55Z",
+      "html_url": "https://github.com/natadecua/Date-based-Linux-Perl-File-sorter",
+      "is_private": false,
+      "readme_path": "src/data/readmes/Date-based-Linux-Perl-File-sorter.md",
+      "specimen_svg": "/specimens/Date-based-Linux-Perl-File-sorter.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.30634646967519075,
+        "rotationRate": 0.36639372033613327,
+        "jitter": [
+          -0.46939385076984763,
+          0.36852181633003056,
+          -0.050599706592038274
+        ],
+        "scale": 1.1349577688844874
+      }
+    },
+    {
+      "name": "Enhanced-RISC-based-Processor",
+      "description": "Design of an Enhanced RISC-based Processor with  Increased Memory Capacity and I/O Ports ",
+      "language": null,
+      "stars": 0,
+      "topics": [],
+      "pushed_at": "2025-04-04T05:57:36Z",
+      "html_url": "https://github.com/natadecua/Enhanced-RISC-based-Processor",
+      "is_private": false,
+      "readme_path": "src/data/readmes/Enhanced-RISC-based-Processor.md",
+      "specimen_svg": "/specimens/Enhanced-RISC-based-Processor.svg",
+      "specimen": {
+        "family": "generic",
+        "density": 0.3177054686238989,
+        "rotationRate": 0.36629130725690967,
+        "jitter": [
+          -0.481741894967854,
+          0.019780097529292107,
+          -0.18795992759987712
+        ],
+        "scale": 1.0715495281619951
+      }
+    }
+  ]
+}
