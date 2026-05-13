@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ViewTransitions } from 'astro:transitions';
 import Hero from "../components/Hero.astro";
 import SpecimensGrid from "../components/SpecimensGrid.astro";
 ---
@@ -9,6 +10,7 @@ import SpecimensGrid from "../components/SpecimensGrid.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="natadecua — a quiet archive of things, mostly built in public." />
     <title>natadecua</title>
+    <ViewTransitions />
   </head>
   <body>
     <main>

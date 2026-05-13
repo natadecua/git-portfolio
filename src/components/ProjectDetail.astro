@@ -1,0 +1,45 @@
+---
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { marked } from 'marked';
+interface Props {
+  name: string;
+  description: string;
+  language: string | null;
+  stars: number;
+  html_url: string;
+  topics: string[];
+  pushed_at: string;
+  readme_path: string;
+}
+const { name, description, language, stars, html_url, topics, pushed_at, readme_path } = Astro.props;
+const raw = await fs.readFile(path.join(process.cwd(), readme_path), 'utf8').catch(() => '');
+const html = raw ? marked.parse(raw, { breaks: true }) : '<p class="muted">No README.</p>';
+---
+<div class="detail">
+  <div class="meta">
+    <span class="label">Project</span>
+    <h2 style="margin-top: var(--s-2);">{name}<span class="accent">.</span></h2>
+    {description && <p style="margin-top: var(--s-2);">{description}</p>}
+    <div class="chips mono">
+      {language && <span>{language}</span>}
+      <span>★ {stars}</span>
+      {topics.slice(0, 4).map(t => <span>#{t}</span>)}
+    </div>
+    <a class="mono accent-link" href={html_url} rel="noopener">{html_url} ↗</a>
+  </div>
+  <hr class="hairline" style="margin: var(--s-4) 0;" />
+  <article class="readme" set:html={html} />
+</div>
+<style>
+  .detail { padding: var(--s-5) 0 var(--s-6); max-width: 70ch; }
+  .chips { display:flex; flex-wrap: wrap; gap: var(--s-3); color: var(--muted); margin-top: var(--s-3); }
+  .accent-link { color: var(--accent); margin-top: var(--s-3); display: inline-block; font-size: 0.8rem; }
+  .readme :global(h1), .readme :global(h2) { font-family: var(--font-display); margin-top: var(--s-5); font-size: 1.2rem; }
+  .readme :global(h3) { font-family: var(--font-display); margin-top: var(--s-4); font-size: 1rem; }
+  .readme :global(p), .readme :global(li) { font-size: 0.95rem; line-height: 1.6; }
+  .readme :global(pre) { font-family: var(--font-mono); background: color-mix(in oklch, var(--ink) 6%, transparent); padding: var(--s-4); overflow-x: auto; border-radius: 2px; }
+  .readme :global(code) { font-family: var(--font-mono); font-size: 0.85em; }
+  .readme :global(a) { color: var(--accent); }
+  .readme :global(img) { max-width: 100%; }
+</style>

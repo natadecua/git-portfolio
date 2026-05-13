@@ -3,6 +3,7 @@ import portfolio from '~/data/portfolio.json';
 import { relativeTime } from '~/lib/format';
 import SpecimenFallback from './SpecimenFallback.astro';
 import Specimen from './Specimen.tsx';
+import ProjectDetail from './ProjectDetail.astro';
 ---
 <section style="padding: 0 var(--s-6) var(--s-7);">
   <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom: var(--s-3);">
@@ -12,16 +13,30 @@ import Specimen from './Specimen.tsx';
   <hr class="hairline" />
   <ol class="ledger">
     {portfolio.repos.map((r, i) => (
-      <li class="row">
-        <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
-        <a class="title" href={r.html_url} rel="noopener">{r.name}</a>
-        <span class="lang mono">{r.language ?? '—'}</span>
-        <span class="stars mono">★ {r.stars}</span>
-        <span class="ago mono">{relativeTime(r.pushed_at)}</span>
-        <span class="specimen">
-          <SpecimenFallback name={r.name} />
-          <Specimen client:visible params={r.specimen} />
-        </span>
+      <li>
+        <details class="row-details">
+          <summary class="row">
+            <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="title">{r.name}</span>
+            <span class="lang mono">{r.language ?? '—'}</span>
+            <span class="stars mono">★ {r.stars}</span>
+            <span class="ago mono">{relativeTime(r.pushed_at)}</span>
+            <span class="specimen">
+              <SpecimenFallback name={r.name} />
+              <Specimen client:visible params={r.specimen} />
+            </span>
+          </summary>
+          <ProjectDetail
+            name={r.name}
+            description={r.description}
+            language={r.language}
+            stars={r.stars}
+            html_url={r.html_url}
+            topics={r.topics}
+            pushed_at={r.pushed_at}
+            readme_path={r.readme_path}
+          />
+        </details>
       </li>
     ))}
   </ol>
@@ -42,10 +57,13 @@ import Specimen from './Specimen.tsx';
     font-weight: 700; font-size: 1.05rem;
     letter-spacing: -0.015em;
   }
-  .title:hover { color: var(--accent); }
   .specimen { justify-self: end; position: relative; width: 40px; height: 40px; }
   .specimen > div { position: absolute; inset: 0; }
   .specimen > div:last-child { z-index: 1; }
+  .row-details > summary { list-style: none; cursor: pointer; }
+  .row-details > summary::-webkit-details-marker { display: none; }
+  .row-details[open] > summary .title { color: var(--accent); }
+  .row-details[open] > summary { border-bottom-color: transparent; }
   @media (max-width: 720px) {
     .row { grid-template-columns: 28px 1fr 60px 40px; }
     .lang, .stars { display: none; }
