@@ -23,7 +23,7 @@ import ProjectDetail from './ProjectDetail.astro';
             <span class="ago mono">{relativeTime(r.pushed_at)}</span>
             <span class="specimen">
               <SpecimenFallback name={r.name} />
-              <Specimen client:visible params={r.specimen} />
+              <Specimen client:only="react" params={r.specimen} />
             </span>
           </summary>
           <ProjectDetail
