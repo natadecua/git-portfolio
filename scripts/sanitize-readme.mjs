@@ -15,9 +15,28 @@ function truncateBytes(str, max) {
   return out;
 }
 
-export function sanitizeReadme(input) {
+function isRelative(url) {
+  return url && !url.startsWith('http://') && !url.startsWith('https://') &&
+    !url.startsWith('//') && !url.startsWith('data:') && !url.startsWith('#');
+}
+
+function rewriteImageUrls(text, rawBase) {
+  // Markdown: ![alt](relative/path)
+  text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+    const trimmed = url.trim();
+    return isRelative(trimmed) ? `![${alt}](${rawBase}/${trimmed})` : `![${alt}](${url})`;
+  });
+  // HTML: <img src="relative/path" or src='relative/path'
+  text = text.replace(/<img([^>]*)\ssrc=(["'])([^"']+)\2/gi, (_, attrs, q, url) => {
+    return isRelative(url) ? `<img${attrs} src=${q}${rawBase}/${url}${q}` : `<img${attrs} src=${q}${url}${q}`;
+  });
+  return text;
+}
+
+export function sanitizeReadme(input, repoRawBase) {
   if (input == null) return '';
   let out = String(input);
+  if (repoRawBase) out = rewriteImageUrls(out, repoRawBase);
   out = out.replace(SCRIPT_RE, '');
   out = out.replace(IFRAME_RE, '');
   out = out.replace(ONATTR_RE, '');

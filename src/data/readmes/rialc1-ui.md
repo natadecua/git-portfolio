@@ -93,19 +93,19 @@ I led implementation across data, backend, frontend, and operations:
 
 ### 1) Main 2D map interface
 
-![Main 2D map interface](docs/screenshots/01-map-overview.png)
+![Main 2D map interface](https://raw.githubusercontent.com/natadecua/rialc1-ui/HEAD/docs/screenshots/01-map-overview.png)
 
 ### 2) Potree main scene viewer
 
-![Potree main viewer](docs/screenshots/02-potree-main.png)
+![Potree main viewer](https://raw.githubusercontent.com/natadecua/rialc1-ui/HEAD/docs/screenshots/02-potree-main.png)
 
 ### 3) Alternate Potree workflow
 
-![Potree alternate viewer](docs/screenshots/03-potree-alt-viewer.png)
+![Potree alternate viewer](https://raw.githubusercontent.com/natadecua/rialc1-ui/HEAD/docs/screenshots/03-potree-alt-viewer.png)
 
 ### 4) Per-tree point cloud viewer
 
-![Per-tree point cloud viewer](docs/screenshots/04-tree-point-viewer.png)
+![Per-tree point cloud viewer](https://raw.githubusercontent.com/natadecua/rialc1-ui/HEAD/docs/screenshots/04-tree-point-viewer.png)
 
 ---
 

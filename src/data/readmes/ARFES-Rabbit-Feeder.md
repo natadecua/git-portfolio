@@ -1,6 +1,6 @@
 # Automatic Rabbit Feeding System (ARFES)
 
-![ARFES Schematic](images/ARFES_Schematic.png)
+![ARFES Schematic](https://raw.githubusercontent.com/natadecua/ARFES-Rabbit-Feeder/HEAD/images/ARFES_Schematic.png)
 
 ## Project Description
 

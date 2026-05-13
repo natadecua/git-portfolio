@@ -6,7 +6,7 @@
 A project demonstrating the design, simulation, and programming of an autonomous line follower robot based on the PIC16F877A microcontroller. This project was developed as part of academic work at De La Salle University.
 
 <!-- Optional: Add a GIF or Image here -->
-<!-- ![Simulation Demo](media/simulation_demo.gif) -->
+<!-- ![Simulation Demo](https://raw.githubusercontent.com/natadecua/line-follower-robot-pic16f877a/HEAD/media/simulation_demo.gif) -->
 
 ## Table of Contents
 
@@ -54,7 +54,7 @@ The primary goal was to showcase understanding of microcontroller interfacing an
 
 (Refer to `hardware/kicad/` for the source file)
 
-![Schematic Diagram](docs/images/schematic_diagram.png)
+![Schematic Diagram](https://raw.githubusercontent.com/natadecua/line-follower-robot-pic16f877a/HEAD/docs/images/schematic_diagram.png)
 
 ## Software & Firmware
 
@@ -65,7 +65,7 @@ The primary goal was to showcase understanding of microcontroller interfacing an
 
 ### Control Logic Flowchart
 
-![Flowchart](docs/images/flowchart.png)
+![Flowchart](https://raw.githubusercontent.com/natadecua/line-follower-robot-pic16f877a/HEAD/docs/images/flowchart.png)
 
 ### Firmware Versions
 
@@ -117,7 +117,7 @@ The primary goal was to showcase understanding of microcontroller interfacing an
 The simulation successfully demonstrated the line following logic. The robot correctly identifies the line using the IR sensors and adjusts motor speeds (in the PWM version) or state (in the basic version) to navigate turns or move straight.
 
 <!-- Add simulation screenshots or GIFs here -->
-<!-- ![Proteus Simulation](docs/images/simulation_screenshot.png) -->
+<!-- ![Proteus Simulation](https://raw.githubusercontent.com/natadecua/line-follower-robot-pic16f877a/HEAD/docs/images/simulation_screenshot.png) -->
 
 *(Include any key observations or quantitative results if available, e.g., simulated speed, turning radius characteristics)*
 

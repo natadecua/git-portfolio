@@ -9,15 +9,6 @@ const langs = Object.entries(portfolio.languages_overall as Record<string, numbe
   .sort(([, a], [, b]) => b - a)
   .slice(0, 6);
 
-function barChar(w: number): string {
-  const intensity = w / max;
-  if (intensity === 0) return '·';
-  if (intensity < 0.25) return '▁';
-  if (intensity < 0.5)  return '▃';
-  if (intensity < 0.75) return '▅';
-  return '█';
-}
-
 const totalCommits = weeks.reduce((a, b) => a + b, 0);
 const activeWeeks = weeks.filter(w => w > 0).length;
 
@@ -43,14 +34,23 @@ monthLabels.forEach((label, idx) => {
   </div>
 
   <div class="chart-wrap" aria-label="52-week activity chart">
-    <div class="month-labels mono">
+    <div class="month-labels mono" aria-hidden="true">
       {labelPositions.map(({ label, idx }) => (
         <span class="month-tick" style={`left: ${(idx / 52) * 100}%`}>{label}</span>
       ))}
     </div>
-    <pre class="rhythm mono" aria-hidden="true">{weeks.map((w, i) => (
-      <span class={i === peakIdx ? 'peak' : ''}>{barChar(w)}</span>
-    ))}</pre>
+    <div class="bars" role="img" aria-label={`52-week commits. Peak week has ${max} commits.`}>
+      {weeks.map((w, i) => {
+        const h = Math.max(8, Math.round((w / max) * 100));
+        return (
+          <span
+            class={`bar ${i === peakIdx ? 'peak' : ''} ${w === 0 ? 'zero' : ''}`}
+            style={`--h:${h}%;`}
+            title={`Week ${i + 1}: ${w} commits`}
+          />
+        );
+      })}
+    </div>
     {max > 0 && (
       <span class="peak-label mono" style={`left: ${(peakIdx / 52) * 100}%`}>
         peak: {max}
@@ -62,12 +62,11 @@ monthLabels.forEach((label, idx) => {
 
   <ul class="langs">
     {langs.map(([name, ratio]) => {
-      const filled = Math.round(ratio * 20);
-      const bar = '█'.repeat(filled) + '░'.repeat(20 - filled);
+      const pct = Math.max(0, Math.min(100, Math.round(ratio * 100)));
       return (
         <li>
           <span class="lang-name">{name}</span>
-          <span class="mono lang-bar">{bar}</span>
+          <span class="lang-bar"><span class="lang-fill" style={`width:${pct}%`} /></span>
           <span class="mono lang-pct">{percent(ratio)}</span>
         </li>
       );
@@ -85,7 +84,8 @@ monthLabels.forEach((label, idx) => {
   .chart-wrap {
     position: relative;
     margin-top: var(--s-4);
-    padding-bottom: var(--s-3);
+    padding-top: var(--s-2);
+    padding-bottom: var(--s-5);
   }
 
   .month-labels {
@@ -102,21 +102,33 @@ monthLabels.forEach((label, idx) => {
     transform: translateX(-50%);
   }
 
-  .rhythm {
-    font-size: 1.6rem;
-    line-height: 1;
-    letter-spacing: 0.1em;
-    color: var(--ink);
-    white-space: nowrap;
-    overflow-x: auto;
-    background: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
+  .bars {
+    display: grid;
+    grid-template-columns: repeat(52, minmax(0, 1fr));
+    align-items: end;
+    gap: 2px;
+    min-height: 100px;
+    height: 120px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--s-2);
   }
 
-  .rhythm .peak {
-    color: var(--accent);
+  .bar {
+    display: block;
+    height: var(--h);
+    background: color-mix(in oklch, var(--ink) 38%, transparent);
+    border-radius: 999px;
+    min-height: 2px;
+    transition: height 220ms var(--ease-out), background-color 180ms var(--ease-out);
+  }
+
+  .bar.zero {
+    opacity: 0.24;
+    height: 8%;
+  }
+
+  .bar.peak {
+    background: var(--accent);
   }
 
   .peak-label {
@@ -129,8 +141,47 @@ monthLabels.forEach((label, idx) => {
   }
 
   .langs { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-3); }
-  .langs li { display: grid; grid-template-columns: 8ch 1fr auto; gap: var(--s-4); align-items: baseline; }
+  .langs li { display: grid; grid-template-columns: 10ch 1fr auto; gap: var(--s-4); align-items: center; }
   .lang-name { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; }
-  .lang-bar { color: var(--muted); letter-spacing: -0.05em; font-size: 0.72rem; }
+  .lang-bar {
+    position: relative;
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--ink) 10%, transparent);
+    overflow: hidden;
+  }
+  .lang-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: color-mix(in oklch, var(--ink) 45%, transparent);
+  }
   .lang-pct { color: var(--muted); min-width: 4ch; text-align: right; font-size: 0.78rem; }
+
+  @media (max-width: 760px) {
+    section {
+      padding: var(--s-6) var(--s-4);
+    }
+
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--s-2);
+    }
+
+    .bars {
+      height: 96px;
+      min-height: 84px;
+    }
+
+    .langs li {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+    }
+
+    .lang-pct {
+      text-align: left;
+    }
+  }
 </style>

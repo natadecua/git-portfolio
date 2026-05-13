@@ -74,25 +74,25 @@ Files have been sorted by modification date into corresponding subdirectories.
 ## Screenshots (Based on Figures from the Paper)
 
 **Figure 1 & 2: Example Source Directory ('test') and its Contents**
-![Test Folder Contents](images/fig2_test_contents.png)
+![Test Folder Contents](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig2_test_contents.png)
 *(Caption: Shows the initial state of the 'test' directory containing various files.)*
 
 **Figure 5 & 6: Running the Script and Completion**
-![Running the Script](images/fig5_running_script.png)
+![Running the Script](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig5_running_script.png)
 *(Caption: Shows the script execution in the terminal, prompting for input.)*
 
-![Script Completion](images/fig6_program_completion.png)
+![Script Completion](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig6_program_completion.png)
 *(Caption: Shows the script's completion message after processing files.)*
 
 **Figure 7 & 8: Resulting Destination Directory ('test_sorted') Structure**
-![New Directory Folders](images/fig7_new_directory_folders.png)
+![New Directory Folders](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig7_new_directory_folders.png)
 *(Caption: Shows the created date-based subdirectories within the destination folder.)*
 
-![Files in Date Subdirectory](images/fig8_new_directory_files.png)
+![Files in Date Subdirectory](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig8_new_directory_files.png)
 *(Caption: Shows files moved into one of the date-specific subdirectories (e.g., 2024-06-19).)*
 
 **Figure 9: Error Handling Example**
-![Error Catching](images/fig9_error_catching.png)
+![Error Catching](https://raw.githubusercontent.com/natadecua/Date-based-Linux-Perl-File-sorter/HEAD/images/fig9_error_catching.png)
 *(Caption: Demonstrates the script handling an error when a non-existent source directory is entered.)*
 
 ## How it Works

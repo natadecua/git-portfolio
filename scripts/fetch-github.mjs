@@ -71,7 +71,8 @@ async function main() {
   const out = [];
   for (const repo of filtered) {
     const raw = await fetchRepoReadme(octokit, repo.name);
-    const readme = sanitizeReadme(raw);
+    const rawBase = `https://raw.githubusercontent.com/${USER}/${repo.name}/HEAD`;
+    const readme = sanitizeReadme(raw, rawBase);
     const readmePath = `src/data/readmes/${repo.name}.md`;
     await fs.writeFile(path.join(ROOT, readmePath), readme, 'utf8');
 

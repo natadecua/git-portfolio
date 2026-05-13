@@ -4,6 +4,7 @@ import { relativeTime } from '~/lib/format';
 import SpecimenFallback from './SpecimenFallback.astro';
 import Specimen from './Specimen.tsx';
 import ProjectDetail from './ProjectDetail.astro';
+const SHOW_SPECIMENS = false;
 ---
 <section class="works-section">
   <div class="section-head">
@@ -27,10 +28,12 @@ import ProjectDetail from './ProjectDetail.astro';
               <span>{relativeTime(r.pushed_at)}</span>
             </div>
           </div>
-          <div class="specimen">
-            <SpecimenFallback name={r.name} size={120} />
-            <Specimen client:only="react" params={r.specimen} size={120} />
-          </div>
+          {SHOW_SPECIMENS && (
+            <div class="specimen">
+              <SpecimenFallback name={r.name} size={120} />
+              <Specimen client:only="react" params={r.specimen} size={120} />
+            </div>
+          )}
         </summary>
         <div class="card-body">
           <ProjectDetail
@@ -116,8 +119,10 @@ import ProjectDetail from './ProjectDetail.astro';
     transition: transform 320ms var(--ease-out);
     isolation: isolate;
     align-self: flex-start;
+    display: grid;
+    place-items: center;
   }
-  .specimen > div { position: absolute; inset: 0; }
+  .specimen > div { position: absolute; inset: 0; display: grid; place-items: center; }
   .specimen > div:last-child { z-index: 1; }
 
   .specimen :global(.specimen-fallback) {

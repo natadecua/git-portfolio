@@ -10,13 +10,13 @@ This repository contains the source code for my portfolio website. It showcases 
 
 ## Screenshots
 ### Home Page
-![Home Page](resources/screenshots/home-page.jpeg)
+![Home Page](https://raw.githubusercontent.com/natadecua/personal-portfolio/HEAD/resources/screenshots/home-page.jpeg)
 
 ### Personal Section
-![Personal Section](resources/screenshots/personal-section.jpeg)
+![Personal Section](https://raw.githubusercontent.com/natadecua/personal-portfolio/HEAD/resources/screenshots/personal-section.jpeg)
 
 ### Professional Section
-![Professional Section](resources/screenshots/professional-section.jpeg)
+![Professional Section](https://raw.githubusercontent.com/natadecua/personal-portfolio/HEAD/resources/screenshots/professional-section.jpeg)
 
 ## Installation
 1. Clone the repository:

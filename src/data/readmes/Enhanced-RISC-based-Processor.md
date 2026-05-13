@@ -30,60 +30,60 @@ Enhanced-RISC-MIPS/
 
 ### Circuit Diagram
 
-![Circuit Diagram](images/circuit_diagram.png)
+![Circuit Diagram](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/circuit_diagram.png)
 *Figure 1: Circuit diagram of the enhanced RISC processor*
 
 ### CPU Memory Module
 
-![CPU Memory Module](images/cpu_memory_module.png)
+![CPU Memory Module](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/cpu_memory_module.png)
 *Figure 2: CPU Memory Module*
 
 ### Data Memory MUX Modules
-![Data Memory MUX Modules](images/data_memory_mux_modules.png)
+![Data Memory MUX Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/data_memory_mux_modules.png)
 *Figure 3: Data Memory MUX Modules*
 
 ### float MUX and float Reg Modules
-![float MUX and float Reg Modules](images/float_mux_reg_modules.png)
+![float MUX and float Reg Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/float_mux_reg_modules.png)
 *Figure 4: float MUX and float Reg Modules*
 
 ### ALU, fpu and opcode Decoder Modules
-![ALU, fpu and opcode Decoder Modules](images/alu_fpu_opcode_decoder_modules.png)
+![ALU, fpu and opcode Decoder Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/alu_fpu_opcode_decoder_modules.png)
 *Figure 5: ALU, fpu and opcode Decoder Modules*
 
 ### MUX and Program Counter Modules
-![MUX and Program Counter Modules](images/mux_program_counter_modules.png)
+![MUX and Program Counter Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/mux_program_counter_modules.png)
 *Figure 6: MUX and Program Counter Modules*
 
 ### Main Register, MUX, and Write Modules
-![Main Register, MUX, and Write Modules](images/main_register_modules.png)
+![Main Register, MUX, and Write Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/main_register_modules.png)
 *Figure 7: Main Register, MUX, and Write Modules*
 
 ### Sign Extension, MUX, and Multiply Modules
-![Sign Extension, MUX, and Multiply Modules](images/sign_extension_modules.png)
+![Sign Extension, MUX, and Multiply Modules](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/sign_extension_modules.png)
 *Figure 8: Sign Extension, MUX, and Multiply Modules*
 
 ### Addition and Subtraction of Floating Point Numbers
-![Addition and Subtraction of Floating Point Numbers](images/addition_subtraction_float_numbers.png)
+![Addition and Subtraction of Floating Point Numbers](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/addition_subtraction_float_numbers.png)
 *Figure 9: Addition and Subtraction of Floating Point Numbers*
 
 ### Multiplication and Division of Integers
-![Multiplication and Division of Integers](images/multiplication_integers.png)
+![Multiplication and Division of Integers](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/multiplication_integers.png)
 *Figure 10: Multiplication and Division of Integers*
 
 ### I/O Ports Timing Simulation
-![I/O Ports Timing Simulation](images/io_ports_timing.png)
+![I/O Ports Timing Simulation](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/io_ports_timing.png)
 *Figure 15: I/O Ports Timing Simulation*
 
 ### I/O Ports Schematic Diagram
-![I/O Ports Schematic Diagram](images/io_ports_schematic.png)
+![I/O Ports Schematic Diagram](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/io_ports_schematic.png)
 *Figure 16: I/O Ports Schematic Diagram*
 
 ### Timing Diagram for Memory Addresses
-![Timing Diagram for Memory Addresses](images/timing_diagram_memory.png)
+![Timing Diagram for Memory Addresses](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/timing_diagram_memory.png)
 *Figure 13: Timing Diagram for Memory Addresses*
 
 ### Data Memory Multiplexer
-![Data Memory Multiplexer](images/data_memory_multiplexer.png)
+![Data Memory Multiplexer](https://raw.githubusercontent.com/natadecua/Enhanced-RISC-based-Processor/HEAD/images/data_memory_multiplexer.png)
 *Figure 14: Data Memory Multiplexer*
 
 ## Planned Implementation (Verilog Directory)
