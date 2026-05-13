@@ -15,5 +15,6 @@ export function percent(ratio: number): string {
 }
 
 export function syncedAgo(iso: string, now: number = Date.now()): string {
-  return `synced ${relativeTime(iso, now)} ago`;
+  const rel = relativeTime(iso, now);
+  return rel === 'today' ? 'synced today' : `synced ${rel} ago`;
 }

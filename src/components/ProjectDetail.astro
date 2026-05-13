@@ -24,7 +24,10 @@ const html = raw ? marked.parse(raw, { breaks: true }) : '';
       <h2>{name}<span class="accent">.</span></h2>
       {description && <p class="desc">{description}</p>}
     </div>
-    <a class="external mono" href={html_url} rel="noopener" target="_blank">View on GitHub ↗</a>
+    <div class="detail-actions">
+      <a class="external mono" href={html_url} rel="noopener" target="_blank">View on GitHub ↗</a>
+      <button class="close-btn mono" data-close-detail aria-label="Close project detail">Close ↑</button>
+    </div>
   </header>
 
   <div class="chips mono">
@@ -38,7 +41,13 @@ const html = raw ? marked.parse(raw, { breaks: true }) : '';
 
   {html
     ? <article class="readme" set:html={html} />
-    : <p class="empty mono">No README provided.</p>}
+    : (
+      <div class="empty-state mono">
+        {description
+          ? <p class="empty-desc">{description}</p>
+          : <p class="empty">No README provided.</p>}
+      </div>
+    )}
 </div>
 
 <style>
@@ -65,6 +74,13 @@ const html = raw ? marked.parse(raw, { breaks: true }) : '';
     max-width: 60ch;
   }
 
+  .detail-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    flex-shrink: 0;
+  }
+
   .external {
     color: var(--accent);
     font-size: 0.78rem;
@@ -72,6 +88,19 @@ const html = raw ? marked.parse(raw, { breaks: true }) : '';
     white-space: nowrap;
   }
   .external:hover { border-bottom-color: var(--accent); }
+
+  .close-btn {
+    background: none;
+    border: 1px solid var(--hairline);
+    color: var(--muted);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+  }
+  .close-btn:hover { color: var(--ink); border-color: var(--ink); }
 
   .chips {
     display: flex;
@@ -93,6 +122,17 @@ const html = raw ? marked.parse(raw, { breaks: true }) : '';
     padding: var(--s-5) 0;
     text-align: center;
     font-size: 0.85rem;
+  }
+
+  .empty-state {
+    padding: var(--s-5) 0 var(--s-4);
+  }
+
+  .empty-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 60ch;
   }
 
   .readme {

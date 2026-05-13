@@ -4,30 +4,66 @@ import { percent } from '~/lib/format';
 
 const weeks = portfolio.activity_52w as number[];
 const max = Math.max(1, ...weeks);
+const peakIdx = weeks.indexOf(max);
 const langs = Object.entries(portfolio.languages_overall as Record<string, number>)
   .sort(([, a], [, b]) => b - a)
   .slice(0, 6);
+
+function barChar(w: number): string {
+  const intensity = w / max;
+  if (intensity === 0) return '·';
+  if (intensity < 0.25) return '▁';
+  if (intensity < 0.5)  return '▃';
+  if (intensity < 0.75) return '▅';
+  return '█';
+}
+
+const totalCommits = weeks.reduce((a, b) => a + b, 0);
+const activeWeeks = weeks.filter(w => w > 0).length;
+
+const now = new Date();
+const monthLabels: string[] = [];
+for (let i = 51; i >= 0; i--) {
+  const d = new Date(now);
+  d.setDate(d.getDate() - i * 7);
+  monthLabels.push(d.toLocaleString('en', { month: 'short' }));
+}
+const labelPositions: { label: string; idx: number }[] = [];
+let lastLabel = '';
+monthLabels.forEach((label, idx) => {
+  if (label !== lastLabel) { labelPositions.push({ label, idx }); lastLabel = label; }
+});
 ---
 <section style="padding: var(--s-7) var(--s-6); border-top: 1px solid var(--hairline);">
-  <div style="display:flex; justify-content:space-between; align-items:baseline;">
+  <div class="section-head">
     <span class="label">Rhythm</span>
-    <span class="label">52 weeks</span>
+    <span class="label mono" style="color:var(--muted); font-size:0.72rem;">
+      {totalCommits} commits · {activeWeeks} active weeks
+    </span>
   </div>
-  <pre class="rhythm mono" aria-label="52-week activity">{weeks.map(w => {
-    const intensity = w / max;
-    if (intensity === 0) return '·';
-    if (intensity < 0.25) return '▁';
-    if (intensity < 0.5)  return '▃';
-    if (intensity < 0.75) return '▅';
-    return '█';
-  }).join('')}</pre>
+
+  <div class="chart-wrap" aria-label="52-week activity chart">
+    <div class="month-labels mono">
+      {labelPositions.map(({ label, idx }) => (
+        <span class="month-tick" style={`left: ${(idx / 52) * 100}%`}>{label}</span>
+      ))}
+    </div>
+    <pre class="rhythm mono" aria-hidden="true">{weeks.map((w, i) => (
+      <span class={i === peakIdx ? 'peak' : ''}>{barChar(w)}</span>
+    ))}</pre>
+    {max > 0 && (
+      <span class="peak-label mono" style={`left: ${(peakIdx / 52) * 100}%`}>
+        peak: {max}
+      </span>
+    )}
+  </div>
 
   <hr class="hairline" style="margin: var(--s-5) 0;" />
 
   <ul class="langs">
     {langs.map(([name, ratio]) => {
-      const filled = Math.round(ratio * 16);
-      const bar = '█'.repeat(filled) + '░'.repeat(16 - filled);
+      const filled = Math.round(ratio * 20);
+      const bar = '█'.repeat(filled) + '░'.repeat(20 - filled);
       return (
         <li>
           <span class="lang-name">{name}</span>
@@ -39,14 +75,62 @@ const langs = Object.entries(portfolio.languages_overall as Record<string, numbe
   </ul>
 </section>
 <style>
-  .rhythm {
-    font-size: 1.4rem; line-height: 1; letter-spacing: 0.05em;
-    color: var(--ink); white-space: nowrap; overflow-x: auto;
-    margin-top: var(--s-3); background: none; border: 0; padding: 0;
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s-4);
   }
-  .langs { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
-  .langs li { display: grid; grid-template-columns: 1fr auto auto; gap: var(--s-4); align-items: baseline; }
-  .lang-name { font-family: var(--font-display); font-weight: 600; }
-  .lang-bar { color: var(--muted); letter-spacing: -0.05em; }
-  .lang-pct { color: var(--muted); min-width: 3ch; text-align: right; }
+
+  .chart-wrap {
+    position: relative;
+    margin-top: var(--s-4);
+    padding-bottom: var(--s-3);
+  }
+
+  .month-labels {
+    position: relative;
+    height: 1.2em;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--s-1);
+  }
+
+  .month-tick {
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .rhythm {
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow-x: auto;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .rhythm .peak {
+    color: var(--accent);
+  }
+
+  .peak-label {
+    position: absolute;
+    font-size: 0.62rem;
+    color: var(--accent);
+    transform: translateX(-50%);
+    margin-top: var(--s-1);
+    white-space: nowrap;
+  }
+
+  .langs { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-3); }
+  .langs li { display: grid; grid-template-columns: 8ch 1fr auto; gap: var(--s-4); align-items: baseline; }
+  .lang-name { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; }
+  .lang-bar { color: var(--muted); letter-spacing: -0.05em; font-size: 0.72rem; }
+  .lang-pct { color: var(--muted); min-width: 4ch; text-align: right; font-size: 0.78rem; }
 </style>

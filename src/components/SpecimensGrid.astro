@@ -157,3 +157,45 @@ import ProjectDetail from './ProjectDetail.astro';
     .card-body { animation: none; }
   }
 </style>
+
+<script>
+  const grid = document.querySelector('.grid') as HTMLElement | null;
+  if (grid) {
+    const cards = () => Array.from(grid.querySelectorAll<HTMLDetailsElement>('details.card'));
+
+    function openCard(el: HTMLDetailsElement) {
+      cards().forEach(c => { if (c !== el) c.removeAttribute('open'); });
+      el.setAttribute('open', '');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeOpen() {
+      cards().forEach(c => c.removeAttribute('open'));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).tagName === 'INPUT') return;
+      const all = cards();
+      const openIdx = all.findIndex(c => c.hasAttribute('open'));
+
+      if (e.key === 'Escape') { closeOpen(); return; }
+      if (e.key === 'j' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = openIdx < all.length - 1 ? openIdx + 1 : 0;
+        openCard(all[next]);
+      }
+      if (e.key === 'k' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = openIdx > 0 ? openIdx - 1 : all.length - 1;
+        openCard(all[prev]);
+      }
+    });
+
+    grid.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest('[data-close-detail]');
+      if (!btn) return;
+      const card = btn.closest('details.card') as HTMLDetailsElement | null;
+      if (card) card.removeAttribute('open');
+    });
+  }
+</script>

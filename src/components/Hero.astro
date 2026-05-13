@@ -10,7 +10,8 @@ const synced = syncedAgo(portfolio.synced_at);
     <span class="label">2026</span>
   </div>
   <h1 style="margin-top: var(--s-3);">A quiet archive of<br/>things, mostly built<br/>in public<span class="accent">.</span></h1>
-  <div style="margin-top: var(--s-5); display:flex; gap: var(--s-4); align-items:center;">
+  <p class="identity mono">Nathanael Tan Cua · Software Engineer · Philippines</p>
+  <div style="margin-top: var(--s-4); display:flex; gap: var(--s-4); align-items:center; flex-wrap:wrap;">
     <span class="dot" aria-hidden="true"></span>
     <span class="mono" style="color: var(--muted);">{synced}</span>
     <span class="mono" style="color: var(--muted);">·</span>
@@ -18,10 +19,17 @@ const synced = syncedAgo(portfolio.synced_at);
   </div>
 </header>
 <style>
+  .identity {
+    margin-top: var(--s-5);
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
   .dot {
     width: 8px; height: 8px; border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 10px color-mix(in oklch, var(--accent) 60%, transparent);
+    flex-shrink: 0;
   }
   @media (prefers-reduced-motion: reduce) {
     .dot { box-shadow: none; }
