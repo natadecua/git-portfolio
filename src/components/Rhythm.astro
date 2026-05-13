@@ -1,0 +1,52 @@
+---
+import portfolio from '~/data/portfolio.json';
+import { percent } from '~/lib/format';
+
+const weeks = portfolio.activity_52w as number[];
+const max = Math.max(1, ...weeks);
+const langs = Object.entries(portfolio.languages_overall as Record<string, number>)
+  .sort(([, a], [, b]) => b - a)
+  .slice(0, 6);
+---
+<section style="padding: var(--s-7) var(--s-6); border-top: 1px solid var(--hairline);">
+  <div style="display:flex; justify-content:space-between; align-items:baseline;">
+    <span class="label">Rhythm</span>
+    <span class="label">52 weeks</span>
+  </div>
+  <pre class="rhythm mono" aria-label="52-week activity">{weeks.map(w => {
+    const intensity = w / max;
+    if (intensity === 0) return '·';
+    if (intensity < 0.25) return '▁';
+    if (intensity < 0.5)  return '▃';
+    if (intensity < 0.75) return '▅';
+    return '█';
+  }).join('')}</pre>
+
+  <hr class="hairline" style="margin: var(--s-5) 0;" />
+
+  <ul class="langs">
+    {langs.map(([name, ratio]) => {
+      const filled = Math.round(ratio * 16);
+      const bar = '█'.repeat(filled) + '░'.repeat(16 - filled);
+      return (
+        <li>
+          <span class="lang-name">{name}</span>
+          <span class="mono lang-bar">{bar}</span>
+          <span class="mono lang-pct">{percent(ratio)}</span>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+<style>
+  .rhythm {
+    font-size: 1.4rem; line-height: 1; letter-spacing: 0.05em;
+    color: var(--ink); white-space: nowrap; overflow-x: auto;
+    margin-top: var(--s-3); background: none; border: 0; padding: 0;
+  }
+  .langs { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
+  .langs li { display: grid; grid-template-columns: 1fr auto auto; gap: var(--s-4); align-items: baseline; }
+  .lang-name { font-family: var(--font-display); font-weight: 600; }
+  .lang-bar { color: var(--muted); letter-spacing: -0.05em; }
+  .lang-pct { color: var(--muted); min-width: 3ch; text-align: right; }
+</style>
