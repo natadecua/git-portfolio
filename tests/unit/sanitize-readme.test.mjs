@@ -10,9 +10,19 @@ describe('sanitizeReadme', () => {
     expect(out).toContain('text');
   });
 
+  it('strips unclosed <script> blocks through EOF', () => {
+    const out = sanitizeReadme('x<script>alert(1)');
+    expect(out).toBe('x');
+  });
+
   it('strips <iframe> blocks', () => {
     const out = sanitizeReadme('a\n<iframe src="x"></iframe>\nb');
     expect(out).not.toContain('iframe');
+  });
+
+  it('strips unclosed <iframe> blocks through EOF', () => {
+    const out = sanitizeReadme('x<iframe src=evil>rest');
+    expect(out).toBe('x');
   });
 
   it('strips inline on* attributes', () => {

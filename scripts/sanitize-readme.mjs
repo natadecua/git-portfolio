@@ -1,6 +1,6 @@
 const MAX_BYTES = 8192;
-const SCRIPT_RE = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script\s*>/gi;
-const IFRAME_RE = /<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe\s*>/gi;
+const SCRIPT_RE = /<script\b[\s\S]*?(?:<\/script\s*>|$)/gi;
+const IFRAME_RE = /<iframe\b[\s\S]*?(?:<\/iframe\s*>|$)/gi;
 const ONATTR_RE = /\son[a-z]+\s*=\s*("([^"]*)"|'([^']*)'|[^\s>]+)/gi;
 const DETAILS_RE = /<details\b/i;
 
